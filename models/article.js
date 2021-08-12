@@ -1,21 +1,25 @@
 const mongoose = require("mongoose");
 const marked = require("marked");
-
-//slug to generate a url from the id of the article
 const slugify = require("slugify");
-
-//for sanitzing the code...for an extra security
 const createDomPurify = require("dompurify");
 const { JSDOM } = require("jsdom");
-
 const dompurify = createDomPurify(new JSDOM().window);
-
 const articleSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
   },
-
+  writter:{
+    type:String,
+    required:true,
+  },
+  thumbnail:{
+    type:String,
+    required:true,
+  },
+  tagline:{
+    type:String
+  },
   cat: {
     type: String,
     required: true,
@@ -45,7 +49,6 @@ const articleSchema = new mongoose.Schema({
     default: "placeholder.jpg",
   },
 });
-
 articleSchema.pre("validate", function (next) {
   if (this.title) {
     this.slug = slugify(this.title, { lower: true, strict: true });
@@ -57,5 +60,4 @@ articleSchema.pre("validate", function (next) {
 
   next();
 });
-
 module.exports = mongoose.model("Article", articleSchema);

@@ -78,6 +78,10 @@ function saveArticleAndRedirect(path) {
     article.description = req.body.description;
     article.markdown = req.body.markdown;
     article.cat = req.body.cat;
+    article.writter = req.body.writter;
+    article.tagline= req.body.tagline;
+    article.thumbnail= req.body.thumbnail;
+
     // article.img = req.file.filename;
     try {
       article = await article.save();
